@@ -1,0 +1,9 @@
+{
+  "name": "awla-v3-backend",
+  "version": "0.1.0-alpha",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "check": "node --check src/index.js && node --check src/vault.js && node --check src/providers/registry.js"
+  }
+}

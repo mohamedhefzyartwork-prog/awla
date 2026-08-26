@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AWLA V3 Alpha — Jewelry Creative OS</title>
+<style>
+:root{--bg:#f4f1e9;--card:#fff;--ink:#102126;--muted:#637174;--line:#d9d6ce;--nav:#0f252c;--green:#1f7a62;--green2:#e1efe9;--amber:#a46c20;--amber2:#f6ead9}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+.wrap{max-width:1280px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--green)}
+h1{margin:6px 0 4px;font-size:30px}.muted{color:var(--muted);font-size:12px;line-height:1.6}.row{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:11px;padding:10px 14px;background:#fff;color:var(--ink);font-weight:800;cursor:pointer}.btn.primary{background:var(--nav);color:#fff;border-color:var(--nav)}.btn.good{background:var(--green);color:#fff;border-color:var(--green)}.btn:disabled{opacity:.45}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.metric,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}.metric b{font-size:28px;display:block;margin-top:4px}.layout{display:grid;grid-template-columns:340px 1fr;gap:14px}.sidebar .card{margin-bottom:12px}.sku{border:1px solid var(--line);border-radius:12px;padding:11px;margin:8px 0}.sku.selected{border-color:var(--green);background:#f7fbf9}.badge{display:inline-block;padding:5px 8px;border-radius:99px;font-size:10px;font-weight:900;background:var(--green2);color:var(--green)}.badge.warn{background:var(--amber2);color:var(--amber)}
+.field label{font-size:11px;font-weight:800;display:block;margin:8px 0 5px}.field input,.field textarea,.field select{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}.field textarea{min-height:90px}
+.units{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.unit h3{margin:7px 0}.graph{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0}.node{font-size:9px;border-radius:99px;padding:5px 7px;background:#edf0ef}.stage{display:grid;grid-template-columns:1fr 1fr;gap:12px}.canvasbox{background:#102126;border-radius:14px;min-height:430px;display:grid;place-items:center;padding:10px}.canvasbox canvas{max-width:100%;width:100%;height:auto;background:#e9e6df;border-radius:10px}.status{font-size:11px;color:var(--muted);margin:8px 0}.progress{height:7px;border-radius:99px;background:#eceae4;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--green)}
+.hidden{display:none}.notice{padding:12px;border:1px solid #cde0d8;background:#f4faf7;border-radius:12px;font-size:11px;line-height:1.6}.tabs{display:flex;gap:7px;margin:16px 0}.tabs button.active{background:var(--nav);color:#fff}.view{display:none}.view.active{display:block}
+table{width:100%;border-collapse:collapse}th,td{text-align:right;font-size:11px;border-bottom:1px solid #eee;padding:9px}.ok{color:var(--green)}.warntext{color:var(--amber)}
+@media(max-width:900px){.grid4{grid-template-columns:1fr 1fr}.layout,.stage{grid-template-columns:1fr}.units{grid-template-columns:1fr}}@media(max-width:520px){.grid4{grid-template-columns:1fr}.top{flex-direction:column}}
+</style>
+</head>
+<body><div class="wrap">
+<div class="top"><div><div class="eyebrow">AWLA V3 ALPHA · JEWELRY CREATIVE OS</div><h1>من SKU إلى Creative قابل للاعتماد</h1><p class="muted">Brand Brain → Strategy → Campaign DNA → Creative Router → Product Lock → Visual QC → Approval</p></div><div class="row"><button class="btn" id="reset">Reset Demo</button><button class="btn primary" id="buildCampaign">Build Campaign</button></div></div>
+<div class="grid4"><div class="metric"><span class="muted">SKUs</span><b id="mSku">0</b></div><div class="metric"><span class="muted">Content Units</span><b id="mUnits">0</b></div><div class="metric"><span class="muted">Execution Nodes</span><b id="mNodes">0</b></div><div class="metric"><span class="muted">QC Ready</span><b id="mQc">0</b></div></div>
+
+<div class="tabs"><button class="btn active" data-view="workspace">Workspace</button><button class="btn" data-view="graphs">Execution Graphs</button><button class="btn" data-view="settings">Tool Hub</button></div>
+
+<section id="workspace" class="view active"><div class="layout">
+<div class="sidebar">
+<div class="card"><span class="badge">Brand Brain</span><h3 id="brandName"></h3><div class="muted" id="brandMeta"></div><p class="muted" id="brandObjective"></p></div>
+<div class="card"><h3>SKU Library</h3><div id="skuList"></div></div>
+</div>
+<div>
+<div class="card"><div class="notice"><b>Alpha rule:</b> المنتج التجاري الدقيق لا يُعاد توليده. AWLA يولد البيئة ثم يركّب البكسلات الأصلية للـSKU عبر Product Lock.</div></div>
+<div class="card"><h3>Campaign Units</h3><div id="units" class="units"></div></div>
+<div class="card hidden" id="studio"><div class="stage">
+<div><span class="badge">PRODUCT LOCK STUDIO</span><h3 id="studioTitle"></h3><p class="muted" id="studioBrief"></p>
+<div class="field"><label>Product image</label><input id="productFile" type="file" accept="image/*"></div>
+<div class="field"><label>Mask tolerance</label><input id="tolerance" type="range" min="8" max="60" value="30"></div>
+<div class="field"><label>Quality mode</label><select id="qualityMode"><option value="balanced">Balanced</option><option value="quality">Maximum Quality</option><option value="economy">Economy</option></select></div>
+<div class="progress"><span id="progress"></span></div><div class="status" id="status">ارفع صورة المنتج ثم شغّل التنفيذ.</div>
+<div class="row"><button class="btn good" id="run" disabled>Run Execution Graph</button><button class="btn" id="download" disabled>Download PNG</button></div></div>
+<div class="canvasbox"><canvas id="canvas" width="1024" height="1024"></canvas></div>
+</div></div>
+</div></div></section>
+
+<section id="graphs" class="view"><div class="card"><h3>Execution Graphs</h3><table><thead><tr><th>Unit</th><th>SKU</th><th>Creative Type</th><th>Graph</th><th>Status</th></tr></thead><tbody id="graphRows"></tbody></table></div></section>
+
+<section id="settings" class="view"><div class="card"><h3>Connected Creative Tools</h3><p class="muted">AWLA Native متاح. Higgsfield وMagnific جاهزين في architecture لكن يحتاجان ربط الحساب/credential قبل التنفيذ الحي.</p>
+<table><thead><tr><th>Provider</th><th>Capabilities</th><th>Status</th></tr></thead><tbody>
+<tr><td>AWLA Native / Cloudflare</td><td>Environment generation</td><td class="ok">Configured</td></tr>
+<tr><td>Higgsfield</td><td>Image / video specialist</td><td class="warntext">Needs connection</td></tr>
+<tr><td>Magnific</td><td>Enhance / upscale</td><td class="warntext">Needs API credential</td></tr>
+</tbody></table>
+<div class="field"><label>Worker URL</label><input id="workerUrl" value="https://awla-ai.mohamedhefzyartwork.workers.dev"></div><button class="btn" id="health">Test AWLA Native</button><div class="status" id="healthStatus"></div></div></section>
+</div>
+<script type="module" src="./app-ui.js"></script></body></html>
